@@ -1,21 +1,12 @@
-import http from 'node:http'
-import { routes } from './routes'
+import express from 'express'
+import { routes } from './routes/index.js'
 
+const app = express()
 
-const server = http.createServer(async(req, res) => {
-    const { method, url } = req
+app.use(express.json())
 
-    await json(req, res)
+app.use(routes)
 
-    const route = routes.find(route => {
-        return route.method === method && route.path.test(url)
-    })
-
-    return res.json({message: route})
+app.listen(3333, () => {
+    console.log('server is running on port 3333')
 })
-
-server(http('/tasks', (req, res) => {
-    return res.end('tasks working?')
-}))
-
-server.listen(3333)
