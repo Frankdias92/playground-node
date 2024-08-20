@@ -17,11 +17,11 @@ const csvWriter = createObjectCsvWriter({
         { id: 'updated_at', title: 'UpdatedAt' },
         { id: 'is_completed', title: 'IsCompleted' }
     ],
-    append: true,
+    // append: true,
 })
 
-if (!fileExists) {
-    csvWriter.writeRecords([])
-}
+// if (!fileExists) {
+//     csvWriter.writeRecords([])
+// }
 
 export default csvWriter
