@@ -1,9 +1,8 @@
 import fs from 'fs'
-import path, { resolve } from 'path'
+import path from 'path'
 import csv from 'csv-parser'
-import { rejects } from 'assert'
 
-const filePath = path.resolve('data.csv')
+const filePath = path.resolve('tasks.csv')
 
 export const readCSV = () => {
     return new Promise((resolve, rejects) => {
