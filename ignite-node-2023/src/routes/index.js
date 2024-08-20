@@ -1,11 +1,24 @@
 import { Router } from "express"
+import csvWriter from "../utils/csvWriter.js"
 
-const routes = Router()
+const router = Router()
 
-routes.use('/tasks', (req, res) => {
-    return res.status(200).json({message: 'working'})
+router.get('/', (req, res) => {
+    res.json({ message: 'Hello tasks ;]' })
+})
+
+router.post('/', async (req, res) => {
+    try {
+        const { id, name } = req.body
+
+        await csvWriter.writeRecords([{ id, name }])
+
+        res.status(201).json({ message: 'Task saved with success' })
+    } catch (error) {
+        console.error('Error to save the task', error)
+        res.status(500).json({ message: 'Error to save the task', error })
+    }
 })
 
 
-export {routes}
-
+export default router
