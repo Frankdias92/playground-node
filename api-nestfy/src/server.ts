@@ -1,16 +1,15 @@
 import fastify from "fastify";
-import { database } from "./database";
+import { env } from "./env";
+import { transactionsRoutes } from "./routes/transactions";
 
 const app = fastify()
 
-app.get('/', async () => {
-    const tables = await database('sqlite_schema').select('*')
-
-    return tables
+app.register(transactionsRoutes, {
+    prefix: 'transactions',
 })
 
 app.listen({
-    port: 3333,
-}).then(() => {
-    console.log('Server running!')
+        port: env.PORT,
+    }).then(() => {
+        console.log('Server running!')
 })
