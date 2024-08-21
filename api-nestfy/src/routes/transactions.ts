@@ -2,36 +2,50 @@ import { FastifyInstance } from "fastify"
 import { database } from "../database"
 import { z } from "zod"
 import { randomUUID } from 'node:crypto'
+import { checkSessionIdExists } from "../middlewares/check-session-id-exist"
 
 
 export async function transactionsRoutes(app: FastifyInstance) {
-    app.get('/', async (req, reply) => {
-        const transactions = await database('transactions').select()
+    app.get('/', { preHandler: [checkSessionIdExists] }, async (req, reply) => {
+        const { sessionId } = req.cookies
+        
+        const transactions = await database('transactions')
+            .where('session_id', sessionId)
+            .select()
 
         return { transactions }
     })
 
-    app.get('/:id', async (req, reply) => {
+    app.get('/:id', { preHandler: [checkSessionIdExists] }, async (req, reply) => {
         const getTransactionParamsSchema = z.object({
             id: z.string().uuid()
         })
 
         const { id } = getTransactionParamsSchema.parse(req.params)
+        const { sessionId } = req.cookies
 
-        const transaction = await database('transactions').where('id', id).first()
+        const transaction = await database('transactions')
+            .where({
+                session_id: sessionId,
+                id
+            })
+            .first()
 
         return { transaction }
     })
 
-    app.get('/summary', async (req, reply) => {
+    app.get('/summary', { preHandler: [checkSessionIdExists] }, async (req, reply) => {
+        const { sessionId } = req.cookies
+        
         const summary = await database('transactions')
+            .where({session_id: sessionId})
             .sum('amount', { as: 'amount' })
             .first()
 
         return { summary }
     })
     
-    app.post('/', async (req, reply) => {
+    app.post('/', { preHandler: [checkSessionIdExists] }, async (req, reply) => {
         const createTransactionBodySchema = z.object({
             title: z.string(),
             amount: z.number(),
@@ -39,8 +53,8 @@ export async function transactionsRoutes(app: FastifyInstance) {
         })
 
         const { amount, title, type } = createTransactionBodySchema.parse(req.body)
+        let { sessionId } = req.cookies
 
-        let sessionId = req.cookies.session_id
         if (!sessionId) {
             sessionId = randomUUID()
 
