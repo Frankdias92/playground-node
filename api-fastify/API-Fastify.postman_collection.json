@@ -1,0 +1,125 @@
+{
+	"info": {
+		"_postman_id": "cfe96add-801a-4032-a80a-30600f8a536f",
+		"name": "API Fastify",
+		"description": "# About this collection\n\nAPI Fastify is a Fastify-based RESTful API that manages transaction records. It includes features like user authentication via cookies, database management using Knex.js, and comprehensive testing with Vitest and Supertest.\n\n## API Endpoints\n\n**The API manages transaction records with the following endpoints:**\n\n- `GET /transactions`: Returns all transactions associated with the user's session.\n    \n- `GET /transactions/:id`: Returns a specific transaction by its ID.\n    \n- `GET /transactions/summary`: Returns a summary of all transactions (total amount).\n    \n- `POST /transactions`: Creates a new transaction. The request body should include:\n    \n    - `title`: Transaction title.\n        \n    - `amount`: Transaction amount.\n        \n    - `type`: Transaction type (`credit` or `debit`).\n        \n\n## Using this collection\n\n**Step 1: Send requests**\n\nSelect a request from the collection, review the request parameters and pre-request scripts, then hit \"Send\" to execute the request.\n\n**Step 2: Review the \"Body\"**\n\nUnderstand how dynamic variables are used to generate mock data. Dynamic variables can be used in the request URL and Body.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33830990"
+	},
+	"item": [
+		{
+			"name": "Transaction - NEW",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"title\": \"Credit plus 100\",\n  \"amount\": 100,\n  \"type\": \"credit\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/{{transactions}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"{{transactions}}"
+					]
+				},
+				"description": "This request shows an example of generating mock user data in the request body. You can use this to populate some users for testing your API or application, or to ensure that your API accepts a range of inputs within certain parameters."
+			},
+			"response": []
+		},
+		{
+			"name": "Transactions - INDEX",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/{{transactions}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"{{transactions}}"
+					]
+				},
+				"description": "This request shows an example of generating mock user data in the request body. You can use this to populate some users for testing your API or application, or to ensure that your API accepts a range of inputs within certain parameters."
+			},
+			"response": []
+		},
+		{
+			"name": "Transactions - By ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/{{transactions}}/e9be99be-5c6a-4feb-b27b-5d37c67d28de",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"{{transactions}}",
+						"e9be99be-5c6a-4feb-b27b-5d37c67d28de"
+					]
+				},
+				"description": "This request shows an example of generating mock user data in the request body. You can use this to populate some users for testing your API or application, or to ensure that your API accepts a range of inputs within certain parameters."
+			},
+			"response": []
+		},
+		{
+			"name": "Transactions - SUMMARY",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/{{transactions}}/summary",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"{{transactions}}",
+						"summary"
+					]
+				},
+				"description": "This request shows an example of generating mock user data in the request body. You can use this to populate some users for testing your API or application, or to ensure that your API accepts a range of inputs within certain parameters."
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:3333"
+		},
+		{
+			"key": "transactions",
+			"value": "transactions",
+			"type": "string"
+		}
+	]
+}
