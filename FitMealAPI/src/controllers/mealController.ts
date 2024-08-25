@@ -11,7 +11,7 @@ export async function mealRoutes(app: FastifyInstance) {
             name: z.string(),
             description: z.string(),
             isOnDiet: z.boolean(),
-            date: z.coerce.date(),
+            date: z.coerce.date()
         })
 
         const { name, description, isOnDiet, date } = createMealSchema.parse(

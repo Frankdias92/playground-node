@@ -6,19 +6,19 @@ export async function checkSessionIdExists(
     req: FastifyRequest,
     reply: FastifyReply
 ) {
-    const sessionId = req.cookies.sessionId
-
+    
+    const sessionId = req.cookies.session_id
+    
     if (!sessionId) {
         return reply.status(401).send({
             error: 'Unauthorized.'
         })
     }
-
+    
     const user = await database('users').where({ session_id: sessionId }).first()
-
+    
     if (!user) {
         return reply.status(401).send({ error: 'Unauthorized' })
-    }
-
+    }    
     req.user = user
 }
