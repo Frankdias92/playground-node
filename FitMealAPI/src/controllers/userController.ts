@@ -44,4 +44,38 @@ export async function userRoutes(app: FastifyInstance) {
 
         return reply.status(201).send({ message: 'User created' })
     })
+
+    app.post('/login', async (req, reply) => {
+        const loginSchema = z.object({
+            email: z.string().email(),
+            password: z.string()
+        })
+
+        const { email, password } = loginSchema.parse(req.body)
+
+        const user = await database('users').where({ email }).first()
+
+        if (!user) {
+            return reply.status(400).send({ message: 'Invalid email or password' })
+        }
+
+        const isPasswordCorret = await bcrypt.compare(password, user.password)
+
+        if (!isPasswordCorret) {
+            return reply.status(400).send({ message: 'Invalid email or password' })
+        }
+
+        let sessionId = randomUUID()
+
+        await database('users').where({ id: user.id }).update({
+            session_id: sessionId
+        })
+
+        reply.setCookie('session_id', sessionId, {
+            path: '/',
+            maxAge: 1000 * 60 * 60 * 24 * 7, // 7 dias
+        }) 
+
+        return reply.status(200).send({ message: 'Login succesfull' })
+    })
 }
