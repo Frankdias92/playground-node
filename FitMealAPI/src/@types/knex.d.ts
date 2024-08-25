@@ -12,7 +12,7 @@ declare module 'knex/types/tables' {
             uptade_at: string
         },
         meals: {
-            id: string
+            id: number
             user_id: string
             name: string
             description: string
