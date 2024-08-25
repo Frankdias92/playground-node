@@ -2,7 +2,9 @@
   "name": "fitmealapi",
   "version": "1.0.0",
   "main": "index.js",
+  "engines": {"node": ">=18"},
   "scripts": {
+    "start": "tsx watch src/server.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -19,7 +21,7 @@
   },
   "devDependencies": {
     "@types/node": "^22.5.0",
-    "tsx": "^4.18.0",
-    "typescript": "^5.5.4"
+    "typescript": "^5.5.4",
+    "tsx": "^4.18.0"
   }
 }
