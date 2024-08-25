@@ -89,7 +89,7 @@ The application will be available at `http://localhost:3333`.
 
 You can test the API routes using Postman. The test routes are attached to the project in the `postman` folder.
 
-1. Import the `Fit Meal API.postman_collection.json` file into Postman.
+1. Import the `FitMealAPI.postman_collection.json` file into Postman.
 2. Run the available requests to test the API's functionalities.
 
 ## Routes
@@ -159,13 +159,6 @@ You can test the API routes using Postman. The test routes are attached to the p
 
 - **DELETE /meals/:id**
   - Deletes a meal by ID.
-  - **Headers:**
-    - `Cookie: session_id=your_session_id`
-
-### Metrics
-
-- **GET /metrics**
-  - Retrieves the user's diet metrics.
   - **Headers:**
     - `Cookie: session_id=your_session_id`
 

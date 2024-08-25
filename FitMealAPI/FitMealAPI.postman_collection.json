@@ -1,0 +1,215 @@
+{
+	"info": {
+		"_postman_id": "cfe96add-801a-4032-a80a-30600f8a536f",
+		"name": "FitMealAPI",
+		"description": "# About this collection\n\nFit Meal API is an application developed to manage users' daily diet, allowing the registration, editing, and monitoring of meals.\n\n## API Endpoints\n\n### Users\n\n- **POST /users**\n    \n    - Creates a new user.\n        \n    - { \"username\": \"UserTest\", \"email\": \"user@email.com\", \"password\": \"user_password\"}\n        \n- **POST /auth/login**\n    \n    - Authenticates a user.\n        \n    - { \"email\": \"user@email.com\", \"password\": \"user_password\"}\n        \n\n### Meals\n\n- **POST /meals**\n    \n    - Registers a new meal.\n        \n    - **Headers:**\n        \n        - `Cookie: session_id=your_session_id`\n            \n    - { \"name\": \"Lunch\", \"description\": \"Rice, beans, and salad\", \"isOnDiet\": true, \"date\": \"2024-08-25T12:00:00.000Z\"}\n        \n- **GET /meals**\n    \n    - Lists all meals of the authenticated user.\n        \n    - **Headers:**\n        \n        - `Cookie: session_id=your_session_id`\n            \n- **GET /meals/:id**\n    \n    - Retrieves a single meal by ID.\n        \n    - **Headers:**\n        \n        - `Cookie: session_id=your_session_id`\n            \n- **PUT /meals/:id**\n    \n    - Edits an existing meal.\n        \n    - **Headers:**\n        \n        - `Cookie: session_id=your_session_id`\n            \n    - { \"name\": \"Dinner\", \"description\": \"Vegetable soup\", \"isOnDiet\": false, \"date\": \"2024-08-25T19:00:00.000Z\"}\n        \n- **DELETE /meals/:id**\n    \n    - Deletes a meal by ID.\n        \n    - **Headers:**\n        \n        - `Cookie: session_id=your_session_id`",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33830990"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"UserTest\",\n    \"email\": \"user@email.com\",\n    \"password\": \"test123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/{{users}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{users}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request Copy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"UserTest\",\n    \"email\": \"user@email.com\",\n    \"password\": \"test123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/{{users}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{users}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Meals",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Salad\",\n  \"description\": \"A healthy salad\",\n  \"isOnDiet\": true,\n  \"date\": \"2024-08-25T12:00:00Z\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/{{meals}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{meals}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Copy",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"update\",\n  \"description\": \"A healthy salad update\",\n  \"isOnDiet\": true,\n  \"date\": \"2024-08-25T12:00:00Z\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/{{meals}}/3",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{meals}}",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/{{meals}}/2",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{meals}}",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Index",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/{{meals}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{meals}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/{{meals}}/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{meals}}",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:3333"
+		},
+		{
+			"key": "users",
+			"value": "users",
+			"type": "string"
+		},
+		{
+			"key": "meals",
+			"value": "meals",
+			"type": "string"
+		}
+	]
+}
