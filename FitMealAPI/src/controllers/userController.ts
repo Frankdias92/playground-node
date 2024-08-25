@@ -2,6 +2,7 @@ import { randomUUID } from "crypto";
 import { FastifyInstance } from "fastify";
 import { database } from "src/database";
 import { z } from "zod";
+import bcrypt from 'bcrypt'
 
 
 export async function userRoutes(app: FastifyInstance) {
@@ -17,7 +18,7 @@ export async function userRoutes(app: FastifyInstance) {
         if (!sessionId) {
             sessionId = randomUUID()
 
-            reply.setCookie('sessionId', sessionId, {
+            reply.setCookie('session_id', sessionId, {
                 path: '/',
                 maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
             })
@@ -31,11 +32,13 @@ export async function userRoutes(app: FastifyInstance) {
             return reply.status(400).send({ message: 'User already exist' })
         }
 
+        const hashedPassword = await bcrypt.hash(password, 10)
+
         await database('users').insert({
             id: randomUUID(),
             username,
             email,
-            password,
+            password: hashedPassword,
             session_id: sessionId
         })
 
