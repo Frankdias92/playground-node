@@ -1,33 +1,37 @@
 
 services:
-  web:
+  api:
     build:
       context: .
+    image: fitmealapi-api
     ports:
       - "3333:3333"
     networks:
-      - fit-api
+      - fit_net
     depends_on:
       - postgres
     environment:
-      - .env
+      DB_DATABASE: user
+      DB_USERNAME: user
+      DB_PASSWORD: pg123
+      DB_HOST: postgres
 
   postgres:
-    image: postgres
+    image: postgres:10.22-alpine3.16
     ports:
       - "5432:5432"
     networks:
-      - fit-api
+      - fit_net
     volumes:
-      - postgres-vol:/var/lib/postgresql/data
+      - fitdb_vol:/var/lib/postgres
     environment:
       POSTGRES_PASSWORD: pg123
       POSTGRES_USER: user
       POSTGRES_DB: user
 
 volumes:
-  postgres-vol:
+  fitdb_vol:
 
 networks:
-  fit-api:
+  fit_net:
     driver: bridge
