@@ -1,8 +1,4 @@
-node_modules
-dist
-Dockerfile
 .git*
 .dockerignore
-.gitignore
-dabatase/*.dp
-.env
+database/*.dp
+FitMealAPI.postman_collection.json

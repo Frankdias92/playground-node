@@ -10,9 +10,13 @@ services:
     depends_on:
       - postgres
     environment:
-      - .env
+      DATABASE_CLIENT: postgres
+      DATABASE_URL: postgres://fituser:strongpassword@postgres:5432/fit_data
+      DATABASE_URL_SQL: database/app.db
+      PORT: "3333"
     volumes:
       - .:/app
+    command: ["node", "dist/server.mjs"]
 
   postgres:
     image: postgres:16.2-alpine3.18

@@ -6,6 +6,7 @@
     "node": ">=18"
   },
   "scripts": {
+    "dev": "tsx src/server.ts",
     "start": "node dist/server.mjs",
     "knex": "node --import tsx ./node_modules/knex/bin/cli.js",
     "migrate": "npm run knex migrate:latest",

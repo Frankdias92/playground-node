@@ -5,7 +5,8 @@ import { mealRoutes } from 'src/controllers/mealController'
 export async function routes(app: FastifyInstance) {
     app.register(userRoutes, { prefix: 'users' })
     app.register(mealRoutes, { prefix: 'meals' })
-    app.get('/', async(req, reply) => {
-        return reply.send({ message: 'show data' })
+    app.get('/:slug', async(req, reply) => {
+        let {slug} = req.params as any
+        return reply.send({ message: `Well done buddy! ${slug}`})
     })
 }
