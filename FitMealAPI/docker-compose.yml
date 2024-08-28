@@ -1,27 +1,9 @@
-
 services:
-  app:
-    build: .
-    image: fitmealapi-api
-    ports:
-      - "3333:3333"
-    networks:
-      - fit_net
-    depends_on:
-      - postgres
-    environment:
-      DATABASE_CLIENT: postgres
-      DATABASE_URL: postgres://fituser:strongpassword@postgres:5432/fit_data
-      DATABASE_URL_SQL: database/app.db
-      PORT: "3333"
-    volumes:
-      - .:/app
-    command: ["node", "dist/server.mjs"]
-
   postgres:
+    container_name: fit-db
     image: postgres:16.2-alpine3.18
     ports:
-      - "5432:5432"
+      - 5432:5432
     networks:
       - fit_net
     volumes:
@@ -30,6 +12,23 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
+
+  app:
+    container_name: fit-app
+    build: .
+    image: fit-app
+    ports:
+      - 3333:3333
+    networks:
+      - fit_net
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_CLIENT: ${DATABASE_CLIENT}
+      DATABASE_URL: ${DATABASE_URL}
+      PORT: ${PORT}
+    restart: always
+    command: ["node", "dist/server.mjs"]
 
 volumes:
   fit_data:
