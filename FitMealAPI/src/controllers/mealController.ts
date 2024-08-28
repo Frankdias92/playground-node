@@ -111,4 +111,41 @@ export async function mealRoutes(app: FastifyInstance) {
 
         return reply.status(200).send({ message: 'Meal delete succefull' })
     })
+
+    app.get('/metrics', { preHandler: [checkSessionIdExists] }, async (req, reply) => {
+        const totalMealsOnDiet = await database('meals')
+            .where({ user_id: req.user?.id, is_on_diet: true })
+            .count('id', { as: 'total' })
+            .first()
+
+        const totalMealsWithoutDiet = await database('meals')
+            .where({ user_id: req.user?.id, is_on_diet: true })
+            .count('id', { as: 'total' })
+            .first()
+
+        const totalMeals = await database('meals')
+            .where({ user_id: req.user?.id })
+            .orderBy('date', 'desc')
+        
+        const { boostDaysOnDiet } = totalMeals.reduce((acc, meal) => {
+            if (meal.is_on_diet) {
+                acc.currentSequence += 1
+            } else {
+                acc.currentSequence = 0
+            }
+
+            if (acc.currentSequence > acc.boostDaysOnDiet) {
+                acc.boostDaysOnDiet = acc.currentSequence
+            }
+            return acc
+        },  { boostDaysOnDiet: 0, currentSequence: 0}  )
+
+        return reply.send({
+            totalMeals: totalMeals.length,
+            totalMealsOnDiet: totalMealsOnDiet?.total,
+            totalMealsWithoutDiet: totalMealsWithoutDiet?.total,
+            boostDaysOnDiet
+        })
+            
+    })
 }
