@@ -2,7 +2,7 @@
 
 ### RFs (requisitos)
 
-- [ ] Deve ser possivel se cadastrar
+- [x] Deve ser possivel se cadastrar
 - [ ] Deve ser possivel se autenticar
 - [ ] Deve ser possivel obter o perfil de um usuario logado
 - [ ] Deve ser possivel obter o numero de check-ins realizados pelo usuario
@@ -15,7 +15,7 @@
 
 ### RNs (regras de negocio)
 
-- [ ] O usario não deve poder se cadastrar com um email duplicado
+- [x] O usario não deve poder se cadastrar com um email duplicado
 - [ ] O usario não pode fazer 2 check-ins no mesmo dia
 - [ ] O usario não pode fazer check-in se não estiver perto (100m) da academia
 - [ ] O check-in não pode ser validado até 20 minutos apos criado
@@ -24,7 +24,7 @@
 
 ## RNFs (requisitos não-funcionais)
 
-- [ ] A senha do usuario precisa estar criptografada
-- [ ] Os dados da aplicação precisam estar persistidos em um banco PostgresSQL
+- [x] A senha do usuario precisa estar criptografada
+- [x] Os dados da aplicação precisam estar persistidos em um banco PostgresSQL
 - [ ] Todas listas de dados precisam estar paginadas com 20 itens por pagina
 - [ ] O usuario deve ser identificado por um JWT
