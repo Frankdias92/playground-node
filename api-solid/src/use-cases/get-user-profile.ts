@@ -1,7 +1,6 @@
-import { compare } from 'bcryptjs'
-import type { UsersRepository } from '../repositories/users-repository'
 import type { User } from '@prisma/client'
-import { ResourceNotFoundError } from './errors/resource-not-found-error'
+import { ResourceNotFoundError } from '@/use-cases/errors/resource-not-found-error'
+import type { UsersRepository } from '@/repositories/users-repository'
 
 interface GetUserProfileUseCaseRequest {
   userId: string
@@ -12,17 +11,19 @@ interface GetUserProfileUseCaseResponse {
 }
 
 export class GetUserProfileUseCase {
-  constructor(private userRepository: UsersRepository) {}
+  constructor(private usersRepository: UsersRepository) {}
 
   async execute({
     userId,
   }: GetUserProfileUseCaseRequest): Promise<GetUserProfileUseCaseResponse> {
-    const user = await this.userRepository.findById(userId)
+    const user = await this.usersRepository.findById(userId)
 
     if (!user) {
       throw new ResourceNotFoundError()
     }
 
-    return { user }
+    return {
+      user,
+    }
   }
 }
