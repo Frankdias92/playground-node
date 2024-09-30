@@ -1,14 +1,14 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { InMemoryCheckInRepository } from '@/repositories/in-memory/in-memory-check-ins-repository'
-import { FetchUserCheckInsUseCase } from './fetch-user-check-ins-history'
+import { FetchUserCheckInsHistoryUseCase } from './fetch-user-check-ins-history'
 
 let checkInsRepository: InMemoryCheckInRepository
-let sut: FetchUserCheckInsUseCase
+let sut: FetchUserCheckInsHistoryUseCase
 
 describe('Fetch User Check-in History Use Case', () => {
   beforeEach(() => {
     checkInsRepository = new InMemoryCheckInRepository()
-    sut = new FetchUserCheckInsUseCase(checkInsRepository)
+    sut = new FetchUserCheckInsHistoryUseCase(checkInsRepository)
   })
 
   it('should be able to fetch check-in history', async () => {
