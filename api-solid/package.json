@@ -10,7 +10,7 @@
     "build": "tsup src --out-dir build",
     "test": "vitest run src/use-cases",
     "test:watch": "vitest --dir src/use-case",
-    "pretest:e2e": "run test:create-prisma-environment test:install-prisma-environment",
+    "pretest:e2e": "run-s test:create-prisma-environment test:install-prisma-environment",
     "test:e2e": "vitest run --dir src/http",
     "test:coverage": "vitest run --coverage"
   },
@@ -37,6 +37,7 @@
     "@types/bcryptjs": "2.4.6",
     "@types/supertest": "6.0.2",
     "@vitest/coverage-v8": "2.1.1",
+    "npm-run-all": "4.1.5",
     "supertest": "7.0.0",
     "vite-tsconfig-paths": "5.0.1",
     "vitest": "2.1.1"
