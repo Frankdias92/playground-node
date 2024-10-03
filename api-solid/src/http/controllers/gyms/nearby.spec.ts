@@ -1,9 +1,9 @@
-import request from 'supertest'
 import { app } from '@/app'
-import { createAndAuthenticateUser } from '@/utilis/test/create-and-authenticate-user'
+import request from 'supertest'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
+import { createAndAuthenticateUser } from '@/utilis/test/create-and-authenticate-user'
 
-describe('Search Gym (e2e)', () => {
+describe('Nearby Gyms (e2e)', () => {
   beforeAll(async () => {
     await app.ready()
   })
@@ -12,7 +12,7 @@ describe('Search Gym (e2e)', () => {
     await app.close()
   })
 
-  it('should be able to search gyms by title', async () => {
+  it('should be able to list nearby gyms', async () => {
     const { token } = await createAndAuthenticateUser(app)
 
     await request(app.server)
@@ -33,17 +33,17 @@ describe('Search Gym (e2e)', () => {
         title: 'Typescript Gym',
         description: 'some description 2',
         phone: '84999999991',
-        latitude: 3,
-        longitude: 3,
+        latitude: 1.07,
+        longitude: 1.07,
       })
 
     const response = await request(app.server)
-      .get('/gyms/search')
-      .query({
-        q: 'Javacript',
-      })
+      .get('/gyms/nearby')
       .set('Authorization', `Bearer ${token}`)
-      .send()
+      .query({
+        latitude: 1,
+        longitude: 1,
+      })
 
     expect(response.statusCode).toEqual(200)
     expect(response.body.gyms).toHaveLength(1)
