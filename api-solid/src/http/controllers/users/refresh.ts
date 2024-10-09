@@ -22,6 +22,7 @@ export async function refreshController(
     {
       sign: {
         sub: req.user.sub,
+        expiresIn: '7d',
       },
     }
   )
